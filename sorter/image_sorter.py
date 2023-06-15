@@ -15,6 +15,8 @@ def process_image(image_path,pass_folder,reject_folder):
     filename = image_path.name
     image  = cv2.imread(str(image_path))
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    
+    # threshold(src, dst, threshold value, max value, threshold type)
     _, threshold = cv2.threshold(gray, threshold_value, max_value, threshold_type)
     
     

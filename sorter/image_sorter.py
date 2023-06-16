@@ -11,15 +11,17 @@ threshold_type = cv2.THRESH_BINARY
 
 
 def is_image_below_threshold(image_path, size_threshold):
-    """If the image size is below the threshold, regardless of the thresholding
-    result, the image will be moved to the reject folder.
+    """Check if the image size is below the threshold.
+
+    If the image size is below the threshold, regardless of the thresholding result,
+    the image will be moved to the reject folder.
 
     Args:
-        image_path (_type_): _description_
-        size_threshold (_type_): _description_
+        image_path (str): Path to the image file.
+        size_threshold (int): Size threshold in bytes.
 
     Returns:
-        _type_: _description_
+        bool: True if the image size is below the threshold, False otherwise.
     """
     image_path = Path(image_path)
     size = image_path.stat().st_size
@@ -27,20 +29,20 @@ def is_image_below_threshold(image_path, size_threshold):
 
 
 def process_image(image_path,pass_folder,reject_folder,size_threshold=75*1024):
-    """_summary_
+    """Process an image by applying thresholding and moving it to the appropriate folder.
 
     Args:
-        image_path (_type_): _description_
-        pass_folder (_type_): _description_
-        reject_folder (_type_): _description_
-        size_threshold (_type_, optional): _description_. Defaults to 75*1024.
+        image_path (str): Path to the image file.
+        pass_folder (str): Path to the pass folder for images that pass the test.
+        reject_folder (str): Path to the reject folder for images that fail the test.
+        size_threshold (int, optional): Size threshold in bytes. Defaults to 75*1024.
     """
     image_path = Path(image_path)
     filename = image_path.name
     image  = cv2.imread(str(image_path))
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
-    # threshold(src, dst, threshold value, max value, threshold type)
+     # Apply thresholding (src, dst, threshold value, max value, threshold type)
     _, threshold = cv2.threshold(gray, threshold_value, max_value, threshold_type)
     
     

@@ -5,6 +5,11 @@ from sorter.image_sorter import process_image
 
 # CLI argument parsing
 def parse_arguments():
+    """Parse command-line arguments.
+
+    Returns:
+        argparse.Namespace: Parsed command-line arguments.
+    """
     parser = argparse.ArgumentParser(description="Clean images from electricity meter readings.")
     parser.add_argument("--source", type=str, help="Path to the input folder containing the images")
     parser.add_argument("--destination", type=str, help="Path to the pass folder for images that pass the test")
@@ -12,6 +17,8 @@ def parse_arguments():
     return parser.parse_args()
 
 def main():
+    """Main entry point of the program."""
+     
     # Parse command-line arguments
     args = parse_arguments()
     

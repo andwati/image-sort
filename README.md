@@ -42,3 +42,4 @@ python cli.py --source <image folder path> --destination <pass folder> --rejects
 - Remove blurry images
 - Use multithreading to increase performance
 - Remove images with no meter readings
+- Progress functionality

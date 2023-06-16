@@ -173,3 +173,4 @@ pyrightconfig.json
 rejects/
 done/
 .vscode/
+image_sorter.log

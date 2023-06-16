@@ -1,4 +1,5 @@
 import shutil
+import logging
 from pathlib import Path
 
 import cv2
@@ -9,6 +10,9 @@ threshold_value = 100
 max_value = 255
 threshold_type = cv2.THRESH_BINARY
 
+# configure logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s" , datefmt="%Y-%m-%d %H:%M:%S")
+logger = logging.getLogger(__name__)
 
 def is_image_below_threshold(image_path, size_threshold):
     """Check if the image size is below the threshold.
@@ -54,4 +58,10 @@ def process_image(image_path,pass_folder,reject_folder,size_threshold=75*1024):
     if is_image_below_threshold(image_path, size_threshold):
         destination_folder = reject_folder
         
-    shutil.move(str(image_path), str(destination_folder / filename))
+    try:
+        shutil.move(str(image_path), str(destination_folder / filename))
+        logger.info(f"Image {image_path.name} processed moved to {destination_folder}")
+    except shutil.Error as e:
+        logger.error(f"Error processing image {image_path.name}: {str(e)}")
+    except cv2.error as e:
+        logger.error(f"Error processing image {image_path.name}: {str(e)}")

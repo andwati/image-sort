@@ -14,6 +14,17 @@ threshold_type = cv2.THRESH_BINARY
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s" , datefmt="%Y-%m-%d %H:%M:%S")
 logger = logging.getLogger(__name__)
 
+# Create a file handler and set the log file path
+log_file = "./image_sorter.log"
+file_handler = logging.FileHandler(log_file)
+
+# Configure the file handler to use a more verbose log format than the console output
+formatter = logging.Formatter("[%(levelname)s] %(asctime)s %(message)s")
+file_handler.setFormatter(formatter)
+
+# Add the file handler to the logger
+logger.addHandler(file_handler)
+
 def is_image_below_threshold(image_path, size_threshold):
     """Check if the image size is below the threshold.
 

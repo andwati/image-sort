@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 import cv2
 from sorter.image_sorter import process_image
+from concurrent.futures import ThreadPoolExecutor
 
 # CLI argument parsing
 def parse_arguments():
@@ -35,14 +36,16 @@ def main():
     image_paths = list(input_folder.glob("*.jpg")) + list(input_folder.glob("*.png"))
     
     # Process the images
-    for image_path in image_paths:
-        """
-        try catch block to handle errors in processing individual images.
-        """
-        try:
-            process_image(image_path, pass_folder, reject_folder)
-        except cv2.error as e:
-            print(f"Error processing image {image_path.name}: {str(e)}")
+    with ThreadPoolExecutor() as executor:
+        for image_path in image_paths:
+            """
+            try catch block to handle errors in processing individual images.
+            """
+            try:
+                #process_image(image_path, pass_folder, reject_folder)
+                 executor.submit(process_image, image_path, pass_folder, reject_folder)
+            except cv2.error as e:
+                print(f"Error processing image {image_path.name}: {str(e)}")
     
     print("Sorting complete.")
 

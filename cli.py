@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+import cv2
 from sorter.image_sorter import process_image
 
 # CLI argument parsing
@@ -28,7 +29,13 @@ def main():
     
     # Process the images
     for image_path in image_paths:
-        process_image(image_path, pass_folder, reject_folder)
+        """
+        try catch block to handle errors in processing individual images.
+        """
+        try:
+            process_image(image_path, pass_folder, reject_folder)
+        except cv2.error as e:
+            print(f"Error processing image {image_path.name}: {str(e)}")
     
     print("Sorting complete.")
 

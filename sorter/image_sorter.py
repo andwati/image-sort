@@ -71,7 +71,7 @@ def process_image(image_path,pass_folder,reject_folder,size_threshold=75*1024):
         
     try:
         shutil.move(str(image_path), str(destination_folder / filename))
-        logger.info(f"Image {image_path.name} processed moved to {destination_folder}")
+        logger.info(f"Image {image_path.name} processed and  moved to {destination_folder}")
     except shutil.Error as e:
         logger.error(f"Error processing image {image_path.name}: {str(e)}")
     except cv2.error as e:
